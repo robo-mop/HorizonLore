@@ -16,14 +16,14 @@ const RESOURCE_CACHE_NAME = `RESv${RESOURCE_VERSION.toFixed(2)}`
 var RESOURCE_CACHE = null
 
 // Custom extensions
-String.prototype.containsAny = function (substrings=[]) {
+String.prototype.containsAny = function (substrings = []) {
     return substrings.some(substring => this.includes(substring))
 }
 
 // For Debugging
 IS_TESTING = self.registration.scope.includes("127.0.0.1")
 STOP_CACHING = IS_TESTING
-var log = (text, color="white") => IS_TESTING ? console.log(`%c${text}`, `color: black; background-color: ${color};`) : 0
+var log = (text, color = "white") => IS_TESTING ? console.log(`%c${text}`, `color: black; background-color: ${color};`) : 0
 
 self.addEventListener("install", event => {
     event.waitUntil((async () => {
@@ -62,13 +62,13 @@ self.addEventListener("fetch", request_event => {
 async function get_request(request_event) {
     let request = request_event.request
     let url = request.url
-    
-    if(DOCUMENT_CACHE == null || RESOURCE_CACHE == null) {
+
+    if (DOCUMENT_CACHE == null || RESOURCE_CACHE == null) {
         await load_both_caches()
     }
-    
+
     // Check if the request is for a document
-    if(url.match(/\/$/) || url.containsAny([".html", ".js", ".css"]) && !url.includes(".json") && !url.includes("apis.google.com")) {
+    if (url.match(/\/$/) || url.containsAny([".html", ".js", ".css"]) && !url.includes(".json") && !url.includes("apis.google.com")) {
         /**
         * So here's the game plan:
         * Check if a cache version exists.
@@ -78,14 +78,14 @@ async function get_request(request_event) {
         * 
         * PS: In all possible cases, cache the request after network-fetching it
         */
-        
+
         // Check if a cache version exists
         let cache_match = await DOCUMENT_CACHE.match(request, { ignoreVary: true })
-        if(cache_match == undefined || cache_match == null) {
+        if (cache_match == undefined || cache_match == null) {
             // A cached version DOESN'T exist
             log("A cached version DOESN'T exist, performing a network request", "rgb(128, 128, 255)")
             let network_match = await fetch(request).catch(err => null)
-            if(network_match) {
+            if (network_match) {
                 DOCUMENT_CACHE.put(request, network_match.clone())
             }
             return network_match
@@ -96,24 +96,24 @@ async function get_request(request_event) {
 
             log("Performing network match *in background*")
             const SECONDS_TO_TIMEOUT = 5
-        
+
             const abort_controller = new AbortController()
             const abort_signal = abort_controller.signal
-            const timeout_id = setTimeout(() => abort_controller.abort(), SECONDS_TO_TIMEOUT*1000)
-            
+            const timeout_id = setTimeout(() => abort_controller.abort(), SECONDS_TO_TIMEOUT * 1000)
+
             // Perform a network request
-            fetch(request, {signal: abort_signal}).then(data => {
+            fetch(request, { signal: abort_signal }).then(data => {
                 clearTimeout(timeout_id)
                 log("Network match completed before timeout", "rgb(128, 255, 128)")
                 return data
             }).catch(err => {
-                if(err.name == "AbortError") {
+                if (err.name == "AbortError") {
                     log("Network request took too long, returning cached version", "rgb(255, 128, 128)")
                     return null
                 }
                 throw err
             }).catch(err => null).then(data => {
-                if(data == undefined || data == null) {
+                if (data == undefined || data == null) {
                     // Do nothing if it fails
                 }
                 else {
@@ -128,7 +128,7 @@ async function get_request(request_event) {
         }
     }
     // Check if the request is for a resource
-    else if(url.containsAny([".json", "fonts/", "images/", "fonts.googleapis.com"])) {
+    else if (url.containsAny([".json", "fonts/", "images/", "fonts.googleapis.com"])) {
         // Perform a cache request
         let match = await RESOURCE_CACHE.match(request, { ignoreVary: true })
         if (match != undefined && match != null) return match
@@ -137,7 +137,7 @@ async function get_request(request_event) {
         RESOURCE_CACHE.put(request, match.clone())
         return match
     }
-    
+
     // Doesn't belong to either type of cache, so perform a network request
 
     return await fetch(request)
