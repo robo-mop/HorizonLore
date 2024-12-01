@@ -367,7 +367,7 @@ nav#mobile-nav > .nav-body {
 
 img.collectibles-icon {content: url(/zero-dawn/images/datapoint-icon-collectibles.png);}
 img.audio-icon {content: url(/zero-dawn/images/datapoint-icon-audio.png);}
-img.hologram-icon {content: url(/zero-dawn/images/datapoint-icon-hologram.png);}
+img.holograms-icon {content: url(/zero-dawn/images/datapoint-icon-Holograms.png);}
 img.text-icon {content: url(/zero-dawn/images/datapoint-icon-text.png);}
 img.scanned-glyphs-icon {content: url(/zero-dawn/images/datapoint-icon-scanned-glyphs.png);}
 
@@ -982,8 +982,8 @@ section#desktop-sidebar {
     }
 
     .classic-layout #Audio .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-audio.png);}
-    .classic-layout #Hologram .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-hologram.png);}
-    .classic-layout :is(#Text-Quest, #Text-World, #Text-Machines) .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-text.png);}
+    .classic-layout #Holograms .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-Holograms.png);}
+    .classic-layout :is(#Text-Quests, #Text-World, #Text-Machines) .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-text.png);}
     .classic-layout #Scanned-Glyphs .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-scanned-glyphs.png);}
 
     .classic-layout .datapoint.focused::after {
