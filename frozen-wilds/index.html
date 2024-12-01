@@ -2,21 +2,22 @@
 <html lang="en">
 
 <head>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SWXMZEH7DD"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-SWXMZEH7DD');
     </script>
-    
+
     <!-- Normal Site Stuff -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="All datapoints and lore-related collectibles in Horizon DLC: The Frozen Wilds, with a responsive version of the in-game UI">    
-    <meta name="keywords" content="Horizon DLC: The Frozen Wilds, The Apollo Archive, Datapoints, Horizon Collectibles">
+    <meta name="description" id="meta-description" content="">
+    <meta name="keywords" content="Horizon Zero Dawn, The Frozen Wilds, Horizon Forbidden West, Apollo Archive, Datapoints, Horizon Collectables">
     <meta name="author" content="Aryan Pingle">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -25,24 +26,24 @@
     <meta name="theme-color" content="#121212">
     <link rel="apple-touch-icon" href="/assets/images/logos/favicon-opaque.png">
     <link rel="manifest" href="manifest.json">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary">
     <meta property="twitter:creator" content="@aryan_pingle">
-    <meta property="twitter:title" content="The Apollo Archive | Zero Dawn DLC: The Frozen Wilds">
-    <meta property="twitter:description" content="All datapoints and lore-related collectibles in Horizon DLC: The Frozen Wilds, with a responsive version of the in-game UI">
+    <meta property="twitter:title" id="twitter-title" content="">
+    <meta property="twitter:description" id="twitter-description" content="">
     <meta property="twitter:image" content="https://apollo-archive.netlify.app/assets/images/favicon-opaque.png">
     <meta property="twitter:image:src" content="https://apollo-archive.netlify.app/assets/images/favicon-opaque.png">
-    <meta property="twitter:image:alt" content="A symbol of the focus, which is an in-game object">
+    <meta property="twitter:image:alt" id="twitter-image-alt" content="">
 
     <!-- For The Page -->
     <base href="/">
-    <title>The Apollo Archive | Zero Dawn DLC: The Frozen Wilds</title>
+    <title>Apollo Archive | The Frozen Wilds</title>
     <link rel="icon" href="/assets/images/favicon-16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="/assets/images/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="/assets/images/favicon-48.png" sizes="48x48" type="image/png">
     <link rel="icon" href="/assets/images/favicon-62.png" sizes="62x62" type="image/png">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/zero-dawn/index.css">
@@ -52,20 +53,21 @@
             --selection-filter: var(--filter-blue-from-white);
         }
     </style>
-    
+
     <!-- JS -->
     <script>
-        if("serviceWorker" in navigator) {
+        if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("/sw.js")
         }
     </script>
     <script defer src="/assets/js/main.js"></script>
     <script defer src="/zero-dawn/index.js"></script>
+    <script defer src="/index.js"></script>
     <script defer>
         window.onload = () => {
             logtime(STIME, "HTML PARSING")
             let stime = new Date()
-            setup_local()
+            setup_local(window.language)
             logtime(stime, "setup", "violet")
         }
     </script>
@@ -91,22 +93,22 @@
             <a class="nav__link" href="/forbidden-west/" style="--img-url: url(/assets/images/ForbiddenWest-Logo.png)"></a>
         </div>
     </nav>
-    
+
     <!-- The popup for classic layout  -->
     <div id="datapoint-popup">
         <div id="popup-main">
             <div id="popup-content">
                 <div id="popup-info">
-                    <header>Datapoint Title</header>
+                    <header></header>
                     <!--Span is for the datatype-->
-                    <span>Audio Datapoint</span>
+                    <span></span>
                     <div class="datapoint-audio">
                         <div class="play-button"></div>
                         <div class="progress-bar"></div>
                         <div class="ratio"></div>
                     </div>
-                    <div id="popup-text">
-                        <text></text>
+                    <!-- Keep <text></text> directly after <div>, #popup-info > #popup-text -> wite-space: break-space -->
+                    <div id="popup-text"><text></text>
                     </div>
                 </div>
             </div>
@@ -116,25 +118,25 @@
         </div>
         <div class="controls-container">
             <div onclick="close_popup()">
-                <div class="control-key">ESC</div>
-                Back
+                <div class="control-key">esc</div>
+                <span id="back-text"></span>
             </div>
             <div id="toggle-play-button" onclick="toggle_audio_playback()">
                 <div class="control-key">F</div>
-                Play / Pause
+                <span id="play-pause-text"></span>
             </div>
         </div>
     </div>
     <div id="page">
         <nav id="desktop-nav">
-            <div class="desktop-nav__child" id="page-navigate-left" onclick="go_to_previous_page()">Q</div>
+            <div class="desktop-nav__child" id="page-navigate-left" onclick="go_to_previous_page()">q</div>
             <div class="desktop-nav__child nav-body">
                 <a class="nav__link" href="/" title="Homepage"><img src="/assets/images/Apollo.png" alt=""></a>
                 <a class="nav__link" href="/zero-dawn/" title="Horizon: Zero Dawn"><img src="/assets/images/ZeroDawn-Logo.png" alt=""></a>
                 <a class="nav__link nav__link--current" href="/frozen-wilds/" title="Zero Dawn DLC: The Frozen Wilds"><img src="/assets/images/TheFrozenWilds-Logo.png" alt=""></a>
                 <a class="nav__link" href="/forbidden-west/" title="Horizon: Forbidden West"><img src="/assets/images/ForbiddenWest-Logo.png" alt=""></a>
             </div>
-            <div class="desktop-nav__child" id="page-navigate-right" onclick="go_to_next_page()">E</div>
+            <div class="desktop-nav__child" id="page-navigate-right" onclick="go_to_next_page()">e</div>
             <div class="desktop-nav__child" id="network-status"></div>
         </nav>
         <div id="page-content">
@@ -144,23 +146,19 @@
                     <div id="datapoint-types-inner">
                         <div class="datapoint-choice" target="Audio">
                             <img class="audio-icon" alt="">
-                            <header>Audio
-                                Datapoints</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Holograms">
                             <img class="holograms-icon" alt="">
-                            <header>Hologram
-                                Datapoints</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Text-Quests">
                             <img class="text-icon" alt="">
-                            <header>Text
-                                (Quest)</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Text-World">
                             <img class="text-icon" alt="">
-                            <header>Text
-                                (World)</header>
+                            <header></header>
                         </div>
                     </div>
                 </section>
@@ -168,550 +166,589 @@
                     <section class="datatype" id="Audio">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Audio Datapoints</header>
+                            <header></header>
                         </div>
                         <!-- Must have an outer container for scrolling on phone -->
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- AUDIO DATAPOINTS -->
-<div class="datapoint" description="Voice Recording and Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Secret Show</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Recording and Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Dam Family</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Recording and Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Limited-Edition Merch</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Recording and Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Compensatory Damages</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Recording and Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Farewell Tour</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Message with Text<br>Data Corruption: Partial" media-type="A">
-<div class="datapoint-title">
-    <header>I Understand, Mr. Blevins</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Recording and Text<br>Data Corruption: Partial" media-type="A">
-<div class="datapoint-title">
-    <header>Final Performance</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log with Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Visitor Center</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Inspection Failed</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Return to Firebreak</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Geothermal Suspension</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>The Conversation</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Excessive Secrecy</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Firebreak Upgrades</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Partial" media-type="A">
-<div class="datapoint-title">
-    <header>Supply SNAFU</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Message with Text<br>From: Kenny Chau<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Menu Prank</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>OMG Blevins</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Thanksgiving</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log with Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Incommensurable</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Holo-Lock Reset</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Recording<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>When You Wake</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log with Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Last Goodbye</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Induced Coma</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>The Swarm</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Recording with Text<br>Data Corruption: Minimal" media-type="A">
-<div class="datapoint-title">
-    <header>Oh-Point-Six</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div>
-<!-- END AUDIO DATAPOINTS -->
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="A">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END AUDIO DATAPOINTS -->
                             </div>
                         </div>
                     </section>
                     <section class="datatype" id="Holograms">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Hologram Datapoints</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
-                                <!-- Hologram DATAPOINTS -->
-<div class="datapoint" description="Holograms<br>Data Corruption: Minimal" media-type="H">
-<div class="datapoint-title">
-    <header>The Toast</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Message<br>Data Corruption: Partial" media-type="H">
-<div class="datapoint-title">
-    <header>HEPHAESTUS Revealed</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div><div class="datapoint" description="Voice Message<br>Data Corruption: Partial" media-type="H">
-<div class="datapoint-title">
-    <header>Instability</header>
-</div>
-<div class="datapoint-content">
-    <div class="datapoint-audio">
-        <div class="play-button"></div>
-        <div class="progress-bar"></div>
-        <div class="ratio"></div>
-    </div>
-    <div class="datapoint-text">
-        <text></text>
-    </div>
-</div>
-</div>
-<!-- END Hologram DATAPOINTS -->
+                                <!-- HOLOGRAM DATAPOINTS -->
+                                <div class="datapoint" description="" media-type="H">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="H">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="datapoint" description="" media-type="H">
+                                    <div class="datapoint-title">
+                                        <header></header>
+                                    </div>
+                                    <div class="datapoint-content">
+                                        <div class="datapoint-audio">
+                                            <div class="play-button"></div>
+                                            <div class="progress-bar"></div>
+                                            <div class="ratio"></div>
+                                        </div>
+                                        <div class="datapoint-text">
+                                            <text></text>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END HOLOGRAM DATAPOINTS -->
                             </div>
                         </div>
                     </section>
                     <section class="datatype" id="Text-Quests">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Text Datapoints - Quest</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- TEXT QUEST -->
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Last Girls on Earth</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Mail<br>From: Harris Bonner<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Ban him!!!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Mail<br>From: Kenny Chau<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Stage 2 Complete</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>CYAN Access</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Message<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Valves 101</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Mail<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Door, Again</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Message<br>From: Kenny Chau<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Security Measures</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>That Kiss</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Voice Transcript<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Kenny&#39;s Homecoming</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Report<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>MIE Assessment</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Report<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Incident Report 363-7</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Mail<br>From: <span class='new' title='Joshua Ardhuis (page does not exist)' data-uncrawlable-url='L3dpa2kvSm9zaHVhX0FyZGh1aXM/YWN0aW9uPWVkaXQmcmVkbGluaz0x'>Joshua Ardhuis</span><br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Creatures of Terror</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Mail<br>From: Isla Perry<br>Data Corruption: Partial">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Blast from the Past</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Log<br>Kenny Chau<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Holo Redux</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -726,122 +763,134 @@
                     <section class="datatype" id="Text-World">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Text Datapoints - World</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- TEXT WORLD -->
-                                <div class="datapoint" description="Tallneck Transmitter Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>OBSERVER LOG US-W-10</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="A crumpled and scorched sheet of parchment, etched in a heavy hand.">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>A Summons From The Claim</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Mail<br>From: Marni Jephords<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Our Final Two Weeks</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Goodbye Grizzly</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Text Mail<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Emissions Joyride</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Personal Log<br>Data Corruption: Minimal">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Yellowstone Sux</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Report<br>Data Corruption: Partial">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Park Status</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Beverly Hills Terror Attack</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Return to Singapore</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="Personal Log">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Proposal Approved!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Will tourists return?</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Lafayettes' Last Supper</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><div class="datapoint" description="A sheaf of frozen parchment, inscribed with messy, hastily-drawn Carja glyphs.">
+                                </div>
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Last Request</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -863,12 +912,12 @@
         </div>
         <div class="controls-container">
             <div id="switch-layout" onclick="toggle_layout()">
-                <div class="control-key">Caps</div>
-                Toggle Layout
+                <div class="control-key">alt</div>
+                <span id="toggle-layout-text"></span>
             </div>
             <div id="select-button" onclick="select_datapoint()">
-                <div class="control-key">F</div>
-                Select
+                <div class="control-key">f</div>
+                <span id="select-text"></span>
             </div>
         </div>
     </div>

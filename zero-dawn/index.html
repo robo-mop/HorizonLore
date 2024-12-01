@@ -6,7 +6,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SWXMZEH7DD"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-SWXMZEH7DD');
@@ -15,8 +15,8 @@
     <!-- Normal Site Stuff -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="All datapoints and lore-related collectibles in Horizon: Zero Dawn, with a responsive version of the in-game UI">    
-    <meta name="keywords" content="Horizon Zero Dawn, The Apollo Archive, Datapoints, Horizon Collectibles">
+    <meta name="description" id="meta-description" content="">
+    <meta name="keywords" content="Horizon Zero Dawn, The Frozen Wilds, Horizon Forbidden West, Apollo Archive, Datapoints, Horizon Collectables">
     <meta name="author" content="Aryan Pingle">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -29,15 +29,15 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary">
     <meta property="twitter:creator" content="@aryan_pingle">
-    <meta property="twitter:title" content="The Apollo Archive | Horizon: Zero Dawn">
-    <meta property="twitter:description" content="All datapoints and lore-related collectibles in Horizon: Zero Dawn, with a responsive version of the in-game UI">
+    <meta property="twitter:title" id="twitter-title" content="">
+    <meta property="twitter:description" id="twitter-description" content="">
     <meta property="twitter:image" content="https://apollo-archive.netlify.app/assets/images/favicon-opaque.png">
     <meta property="twitter:image:src" content="https://apollo-archive.netlify.app/assets/images/favicon-opaque.png">
-    <meta property="twitter:image:alt" content="A symbol of the focus, which is an in-game object">
+    <meta property="twitter:image:alt" id="twitter-image-alt" content="">
 
     <!-- For The Page -->
     <base href="/">
-    <title>The Apollo Archive | Horizon: Zero Dawn</title>
+    <title>Apollo Archive | Horizon Zero Dawn</title>
     <link rel="icon" href="/assets/images/favicon-16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="/assets/images/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="/assets/images/favicon-48.png" sizes="48x48" type="image/png">
@@ -49,17 +49,18 @@
 
     <!-- JS -->
     <script>
-        if("serviceWorker" in navigator) {
+        if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("/sw.js")
         }
     </script>
     <script defer src="/assets/js/main.js"></script>
     <script defer src="/zero-dawn/index.js"></script>
+    <script defer src="/index.js"></script>
     <script defer>
         window.onload = () => {
             logtime(STIME, "HTML PARSING")
             let stime = new Date()
-            setup_local()
+            setup_local(window.language)
             logtime(stime, "setup", "violet")
         }
     </script>
@@ -93,14 +94,14 @@
                 <div id="popup-info">
                     <header>Datapoint Title</header>
                     <!--Span is for the datatype-->
-                    <span>Audio Datapoint</span>
+                    <span>zapisy dźwiękowe</span>
                     <div class="datapoint-audio">
                         <div class="play-button"></div>
                         <div class="progress-bar"></div>
                         <div class="ratio"></div>
                     </div>
-                    <div id="popup-text">
-                        <text></text>
+                    <!-- Keep <text></text> directly after <div>, #popup-info > #popup-text -> wite-space: break-space -->
+                    <div id="popup-text"><text></text>
                     </div>
                 </div>
             </div>
@@ -110,25 +111,25 @@
         </div>
         <div class="controls-container">
             <div onclick="close_popup()">
-                <div class="control-key">ESC</div>
-                Back
+                <div class="control-key">esc</div>
+                <span id="back-text"></span>
             </div>
             <div id="toggle-play-button" onclick="toggle_audio_playback()">
                 <div class="control-key">F</div>
-                Play / Pause
+                <span id="play-pause-text"></span>
             </div>
         </div>
     </div>
     <div id="page">
         <nav id="desktop-nav">
-            <div class="desktop-nav__child" id="page-navigate-left" onclick="go_to_previous_page()">Q</div>
+            <div class="desktop-nav__child" id="page-navigate-left" onclick="go_to_previous_page()">q</div>
             <div class="desktop-nav__child nav-body">
                 <a class="nav__link" href="/" title="Homepage"><img src="/assets/images/Apollo.png" alt=""></a>
-                <a class="nav__link nav__link--current" href="/zero-dawn/" title="Horizon: Zero Dawn"><img src="/assets/images/ZeroDawn-Logo.png" alt=""></a>
+                <a class="nav__link nav__link--current" href="/zero-dawn/" title="Horizon Zero Dawn"><img src="/assets/images/ZeroDawn-Logo.png" alt=""></a>
                 <a class="nav__link" href="/frozen-wilds/" title="Zero Dawn DLC: The Frozen Wilds"><img src="/assets/images/TheFrozenWilds-Logo.png" alt=""></a>
-                <a class="nav__link" href="/forbidden-west/" title="Horizon: Forbidden West"><img src="/assets/images/ForbiddenWest-Logo.png" alt=""></a>
+                <a class="nav__link" href="/forbidden-west/" title="Horizon Forbidden West"><img src="/assets/images/ForbiddenWest-Logo.png" alt=""></a>
             </div>
-            <div class="desktop-nav__child" id="page-navigate-right" onclick="go_to_next_page()">E</div>
+            <div class="desktop-nav__child" id="page-navigate-right" onclick="go_to_next_page()">e</div>
             <div class="desktop-nav__child" id="network-status"></div>
         </nav>
         <div id="page-content">
@@ -138,33 +139,33 @@
                     <div id="datapoint-types-inner">
                         <div class="datapoint-choice" target="Audio">
                             <img class="audio-icon" alt="">
-                            <header>Audio
-                                Datapoints</header>
+                            <!-- Audio Datapoints -->
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Holograms">
                             <img class="holograms-icon" alt="">
-                            <header>Hologram
-                                Datapoints</header>
+                            <!-- Hologram Datapoints -->
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Text-Quests">
                             <img class="text-icon" alt="">
-                            <header>Text
-                                (Quest)</header>
+                            <!-- Text (Quest) -->
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Text-World">
                             <img class="text-icon" alt="">
-                            <header>Text
-                                (World)</header>
+                            <!-- Text (World) -->
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Text-Machines">
                             <img class="text-icon" alt="">
-                            <header>Text
-                                (Machines)</header>
+                            <!-- Text (Machines) -->
+                            <header></header>
                         </div>
                         <div class="datapoint-choice" target="Scanned-Glyphs">
                             <img class="scanned-glyphs-icon" alt="">
-                            <header>Scanned
-                                Glyphs</header>
+                            <!-- Scanned Glyphs -->
+                            <header></header>
                         </div>
                     </div>
                 </section>
@@ -172,15 +173,15 @@
                     <section class="datatype" id="Audio">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Audio Datapoints</header>
+                            <header></header>
                         </div>
                         <!-- Must have an outer container for scrolling on phone -->
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- AUDIO DATAPOINTS -->
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Connor Chasson</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -193,9 +194,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Skylar Rivera</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -208,9 +209,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Ella Pontes</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -223,9 +224,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Jackson Frye</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -238,9 +239,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Mia Sayied</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -253,9 +254,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Recorded January 1st, 2066<br><br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Connor Chasson</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -268,9 +269,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Full Stop</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -283,9 +284,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>For Director Evans</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -298,9 +299,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Ted Faro<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>R&#38;D/Lab Retooling</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -313,9 +314,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Entangled Waveforms</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -328,9 +329,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Regarding The Rumors</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -343,9 +344,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Suit Comms Log: Lt. Fiona Murell<br>9th Mechanized Response Brigade<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Comms Log: Lt. Murell</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -358,9 +359,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Suit Comms Log: Sgt. Ames Guliyev<br>9th Mechanized Response Brigade<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Comms Log: Sgt. Guliyev</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -373,9 +374,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Suit Comms Log: Cpl. Yana Mills<br>9th Mechanized Response Brigade<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Comms Log: Cpl. Mills</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -388,9 +389,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Suit Comms Log: Sgt. Usizo Wandari<br>9th Mechanized Response Brigade<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Comms Log: Sgt. Wandari</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -403,9 +404,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Lt. Fiona Murell<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Reminder. Again.</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -418,9 +419,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Cpl. Acosta (A)</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -433,9 +434,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Cpl. Acosta (B)</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -448,9 +449,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Sgt. Guliyev<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Just a Little Longer</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -463,9 +464,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Sgt. Guliyev<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>So Sorry!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -478,9 +479,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Sgt. Guliyev<br>EDITED, APPROVED FOR RELEASE - USRC<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Edited And Approved 1</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -493,9 +494,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Sgt. Guliyev<br>EDITED, APPROVED FOR RELEASE - USRC<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Edited And Approved 2</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -508,9 +509,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Roshana Guliyev<br>APPROVED FOR DELIVERY - USRC<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>I Believe In You</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -523,9 +524,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Roshana Guliyev<br>REJECTED FOR DELIVERY - USRC<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Please Reply!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -538,9 +539,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Lt. Fiona Murell<br>REJECTED FOR DELIVERY - USRC<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Unit Status Report</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -553,9 +554,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: USRC Tech<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Code Nexus Reminder</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -568,9 +569,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>SecureCom EVZD-XX1X011X</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -583,9 +584,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Wife</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -598,9 +599,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Meridian&#39;s Fall</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -613,9 +614,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Prophecy</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -628,9 +629,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Itamen Coddled</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -643,9 +644,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Without Pity</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -658,9 +659,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Chosen of the Sun</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -673,9 +674,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Candidate Interview<br>PhD., Molecular and Cellular Biology<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview: Tom Paech</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -688,9 +689,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Candidate Interview<br>'Data Security Consultant'<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview: Travis Tate</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -703,9 +704,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Candidate Interview<br>Formerly of FAS<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview: Brad Andac</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -718,9 +719,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Candidate Interview<br>PhD., Environmental Science<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview: Susanne Alpert</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -733,9 +734,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Candidate Interview<br>Information Warfare Specialist, NAC<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview: Cpt. Okilo</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -748,9 +749,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Candidate Interview<br>PhD., Aerospace Engineering<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview: Ron Felder</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -763,9 +764,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Candidate Interview<br>PhD., Art History & Museum Studies<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview: Dr. Hsu-Vhey</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -778,9 +779,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Decision Interview<br>Formerly of FAS<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview 2: Brad Andac</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -793,9 +794,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Decision Interview<br>PhD., Environmental Reclamation<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview 2: Susanne Alpert</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -808,9 +809,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Decision Interview<br>PhD., Aerospace Engineering<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Interview 2: Ron Felder</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -823,9 +824,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Tom Paech</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -838,9 +839,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Christina Hsu-Vhey</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -853,9 +854,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Partial" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Travis Tate</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -868,9 +869,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Received 15 JAN 2066.<br>STACKS CLOSED. UNABLE TO ARCHIVE.<br>Data Corruption: None Detected" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Herres Testimonial</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -883,9 +884,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: ZD Tech<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Code Nexus Problems</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -898,9 +899,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Data Corruption: Severe" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>[Lesson 57-6-A]</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -913,9 +914,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>GAIA Prime Arrival Log</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -928,9 +929,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Charles Ronson</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -943,9 +944,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Gene-locked for Elisabet Sobeck<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Charles Ronson</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -958,9 +959,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Margo Shĕn</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -973,9 +974,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Ted Faro<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Rest In Peace</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -988,9 +989,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Ted Faro<br>Data Corruption: Severe (File Damaged)" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>The Future</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1003,9 +1004,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Mail<br>From: Ted Faro<br>Data Corruption: Severe (File Damaged)" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>The Solution</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1018,9 +1019,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Log: Travis Tate</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1033,9 +1034,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Core Control Log</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1048,9 +1049,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Data Corruption: Minimal" media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>ELEUTHIA Runtime Check</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1063,9 +1064,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Duplicated Focus Data<br>SYLENS<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>First Meeting</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1078,9 +1079,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Duplicated Focus Data<br>SYLENS<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Buried Shadow</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1093,9 +1094,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Duplicated Focus Data<br>SYLENS<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Intercepted Transmission</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1108,9 +1109,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Log<br>Tin, copper, iron. Simple audio playback using metal pins on a revolving cylinder." media-type="A">
+                                <div class="datapoint" description="" media-type="A">
                                     <div class="datapoint-title">
-                                        <header>Recording Device</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1129,14 +1130,14 @@
                     <section class="datatype" id="Holograms">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Hologram Datapoints</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
-                                <!-- Holograms DATAPOINTS -->
-                                <div class="datapoint" description="Holo<br>Data Corruption: Partial" media-type="H">
+                                <!-- HOLOGRAM DATAPOINTS -->
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Happy Birthday Isaac!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1149,9 +1150,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>ERROR: Ident tags missing. Unverified format. Data integrity unknown." media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>A Message for Olin</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1164,9 +1165,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Minimal" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Welcome to FAS</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1179,9 +1180,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Minimal" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>FAS-ACA3 Scarab</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1194,9 +1195,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Minimal" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>FAS-FSP5 Khopesh</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1209,9 +1210,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Minimal" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>FAS-BOR7 Horus</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1224,9 +1225,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>CONFIDENTIAL<br>Alpha Privilege Unlock<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Record: 31 Oct 2064</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1239,9 +1240,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>CONFIDENTIAL<br>Alpha Privilege Unlock<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Record: 1 Nov 2064</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1254,9 +1255,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>CONFIDENTIAL<br>Alpha Privilege Unlock<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Record: 3 Nov 2064</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1269,9 +1270,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>The Bad News</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1284,9 +1285,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Minimal" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>The Good News</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1299,9 +1300,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Gaia Log: 27 March 2065</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1314,9 +1315,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Gaia Log: 5 June 2065</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1329,9 +1330,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Gaia Log: 13 January 2066</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1344,9 +1345,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Entry: B1-A-HX-001285891<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>E9B1 Incident Log A</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1359,9 +1360,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Entry: B1-B-HX-001413226<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>E9B1 Incident Log B</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1374,9 +1375,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Entry: B1-C-HX-002171006<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>E9B1 Incident Log C</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1389,9 +1390,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Entry: B1-D-HX-001653285<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>E9B1 Incident Log D</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1404,9 +1405,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Minimal" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Welcome to the Lyceum</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1419,9 +1420,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Partial" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>GAIA&#39;s Dying Plea</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1434,9 +1435,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Data Corruption: Minimal" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Elisabet Sobeck Memorial</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1449,9 +1450,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Holo<br>Omega Override Event, 2/2/66<br>Data Corruption: Severe" media-type="H">
+                                <div class="datapoint" description="" media-type="H">
                                     <div class="datapoint-title">
-                                        <header>Emergency Recording</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-audio">
@@ -1463,21 +1464,21 @@
                                             <text></text>
                                         </div>
                                     </div>
-                                </div><!-- END Hologram DATAPOINTS -->
+                                </div><!-- END HOLOGRAM DATAPOINTS -->
                             </div>
                         </div>
                     </section>
                     <section class="datatype" id="Text-Quests">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Text Datapoints - Quest</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- TEXT QUEST -->
-                                <div class="datapoint" description="Text Mail<br>From: Director Evans<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>All Good Things...</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1485,9 +1486,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Bio: Elisabet Sobeck</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1495,9 +1496,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Bio: Ted Faro</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1505,9 +1506,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>History: FAS</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1515,9 +1516,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Definition: Corporation</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1525,9 +1526,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Reception Log</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1535,9 +1536,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Jay Friedkin<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Re: Complaint</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1545,9 +1546,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Stacy Anders<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Banda Sea Incident</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1555,9 +1556,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Gordon Nakata<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>All Hands on Deck</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1565,9 +1566,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>From: Ted Faro<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Spiritual Summit</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1575,9 +1576,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>FAS Campus Log</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1585,9 +1586,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Log: Cpl. Sarai (A)</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1595,9 +1596,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Log: Cpl. Sarai (B)</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1605,9 +1606,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>USRC Deployment Records</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1615,9 +1616,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Biosphere Degradation</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1625,9 +1626,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Reception Staff<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>We Need Support Too!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1635,9 +1636,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Lounge Staff<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Another Incident</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1645,9 +1646,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Lounge Staff<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sound Proofing?</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1655,9 +1656,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Lounge Staff<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Restock Or Else...</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1665,9 +1666,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Counselor Guidelines (1)</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1675,9 +1676,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Counselor Guidelines (2)</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1685,9 +1686,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Make Your Selection</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1695,9 +1696,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Samina Ebadji<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Encapsulated DNA</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1705,9 +1706,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Samina Ebadji<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>APOLLO Update</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1715,9 +1716,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Margo Shĕn<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Simulation Results</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1725,9 +1726,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Elisabet Sobeck<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Full Steam Ahead</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1735,9 +1736,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Travis Tate<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>&#34;Noise Complaints&#34;</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1745,9 +1746,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>HADES Protocol</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1755,9 +1756,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Samina Ebadji<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Archive Abuse</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1765,9 +1766,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Patrick Brochard-Klein<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Cradle Sealed</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1775,9 +1776,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Patrick Brochard-Klein<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Cradle Servitor Personae</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1785,9 +1786,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Patrick Brochard-Klein<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>FZ Chambers</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1795,9 +1796,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Elisabet Sobeck<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Odyssey Has Failed</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1805,9 +1806,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Charles Ronson<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>ARTEMIS Status</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1815,9 +1816,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Incubator unit of advanced design.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Chamber B1-001</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1825,9 +1826,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: None">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>[GESTATION-E9B1]</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1835,9 +1836,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Operations Log</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1845,9 +1846,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: None">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>[NURSERY-E9B1]</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1855,9 +1856,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: None">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>[KINDERGARTEN-E9B1]</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1865,9 +1866,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Solid-state storage devices. Cursory scan indicates severe data corruption from impact and exposure damage.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 11-19-64</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1875,9 +1876,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Solid-state storage devices. Cursory scan indicates severe data corruption from impact and exposure damage.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 7-16-65</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1885,9 +1886,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Solid-state storage devices. Cursory scan indicates severe data corruption from impact and exposure damage.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 10-31-65</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1895,9 +1896,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Solid-state storage devices. Cursory scan indicates severe data corruption from impact and exposure damage.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 1-15-66</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1905,9 +1906,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording<br>Solid-state storage devices. Cursory scan indicates severe data corruption from impact and exposure damage.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Gaia Log: 3 Feb 2065</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1915,9 +1916,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Repaired File">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 11-19-64 R</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1925,9 +1926,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Repaired File">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 7-16-65 R</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1935,9 +1936,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Repaired File">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 10-31-65 R</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1945,9 +1946,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Repaired File">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sobeck Journal, 1-15-66 R</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1955,9 +1956,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A leather-bound journal that contains a stray letter.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Dervahl&#39;s Journal</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1965,9 +1966,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Letter<br>A slip of parchment with scrawled glyphs.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Tattered Letter</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1975,9 +1976,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Major Garrow<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Ultraweave Progress</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1985,9 +1986,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Ultraweave Trials</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -1995,9 +1996,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Voice Recording">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Gaia Log: 3 Feb 2065 R</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2011,14 +2012,14 @@
                     <section class="datatype" id="Text-World">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Text Datapoints - World</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- TEXT WORLD -->
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Refugee museum opens</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2026,9 +2027,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>&#34;Haere Mai&#34;</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2036,9 +2037,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Schott v. Frost</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2046,9 +2047,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Jeff Andreatis Show</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2056,9 +2057,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>UK vets struggle</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2066,9 +2067,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Leaks sparks fears</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2076,9 +2077,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Hartz wins Bahamas</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2086,9 +2087,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>1st Amendment Virtual?</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2096,9 +2097,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Harriet Choi Dies</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2106,9 +2107,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Mourn mosquitoes?</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2116,9 +2117,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Turing Act criticized</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2126,9 +2127,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Who Did This? #86</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2136,9 +2137,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Lure of the Real</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2146,9 +2147,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Destin folds</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2156,9 +2157,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Reiker Building?</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2166,9 +2167,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="User Guide<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Get Ti-D-O Started!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2176,9 +2177,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Robar is coming!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2186,9 +2187,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>EZVenue Staffing</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2196,9 +2197,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Press Release<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Inebri8 available!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2206,9 +2207,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>RPGreet!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2216,9 +2217,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Get Tactile!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2226,9 +2227,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Summer Sale! YumNow!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2236,9 +2237,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>It&#39;s PizzaVeet!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2246,9 +2247,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>DO NOT IGNORE!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2256,9 +2257,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>VeetEats!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2266,9 +2267,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>VertiVIP Program</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2276,9 +2277,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Hey Subscriber!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2286,9 +2287,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Greece is Calling</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2296,9 +2297,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Customer Review<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>AVOID THE TOUR!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2306,9 +2307,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Review<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>We Were Indonesia</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2316,9 +2317,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Subscriber Message<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Grey Swarms Diary</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2326,9 +2327,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Metal vs Meat!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2336,9 +2337,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Review<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Vani In Concert</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2346,9 +2347,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Holo Listings</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2356,9 +2357,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Tormented Giveaway!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2366,9 +2367,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Review<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Naysay Doom</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2376,9 +2377,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Course Listing, 2063</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2386,9 +2387,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>$$$ With MechBooker!</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2396,9 +2397,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Advert<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Holoskins Daily 6/6/61</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2406,9 +2407,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>All The Same</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2416,9 +2417,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>China-Sick</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2426,9 +2427,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>She&#39;s The One</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2436,9 +2437,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Mexico</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2446,9 +2447,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Cram</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2456,9 +2457,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Supplier</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2466,9 +2467,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Sleeper</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2476,9 +2477,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Idiot Army (Datapoint)</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2486,9 +2487,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Holo-Haunting</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2496,9 +2497,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Luna Here I Come</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2506,9 +2507,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Message Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Log: 3/3/64</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2516,9 +2517,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Duncan Roerig<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>I Must Thank You</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2526,9 +2527,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Subscriber Message<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>To All Jessifans</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2536,9 +2537,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Message Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Chocolate Box Log</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2546,9 +2547,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Message Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Log: 5/18/63</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2556,9 +2557,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Military Directive<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>SPECIAL ORDERS</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2566,9 +2567,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Izzy Mandel<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>What scares me...</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2576,9 +2577,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Do Your Part</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2586,9 +2587,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Theresa Sanders<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Your &#34;Gift&#34;</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2596,9 +2597,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Mail<br>From: Grant Rowe<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>[No subject]</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2606,9 +2607,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>This Sucks</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2616,9 +2617,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Phantom Limbs</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2626,9 +2627,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Text Log<br>Data Corruption: Minimal">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Just Got Back</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2636,9 +2637,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Odyssey Injustice?</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2646,9 +2647,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Odyssey Drives Ready</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2656,9 +2657,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Odyssey to Nowhere</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2666,9 +2667,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Dalgaard on FZ</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2676,9 +2677,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="News Item<br>Data Corruption: Partial">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Odyssey ready?</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2692,14 +2693,14 @@
                     <section class="datatype" id="Text-Machines">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Text Datapoints - Machines</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- TEXT MACHINES -->
-                                <div class="datapoint" description="Tallneck Transmitter Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>OBSERVER LOG US-W-17</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2707,9 +2708,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Tallneck Transmitter Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>OBSERVER LOG US-W-18</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2717,9 +2718,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Tallneck Transmitter Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>OBSERVER LOG US-W-19</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2727,9 +2728,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Tallneck Transmitter Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>OBSERVER LOG US-W-20</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2737,9 +2738,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Tallneck Transmitter Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>OBSERVER LOG US-W-21</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2747,9 +2748,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Cauldron Core Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>M/SIGMA CORE LOG 763E</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2757,9 +2758,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Cauldron Core Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>M/RHO CORE LOG 653Z</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2767,9 +2768,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Cauldron Core Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>M/THETA CORE LOG 893V</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2777,9 +2778,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Cauldron Core Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>M/XI CORE LOG 231L</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2787,9 +2788,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Cauldron Core Log">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>M/ALL-US-W CM LOG 329G</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2803,14 +2804,14 @@
                     <section class="datatype" id="Scanned-Glyphs">
                         <div class="datatype-title">
                             <img alt="">
-                            <header>Scanned Glyphs</header>
+                            <header></header>
                         </div>
                         <div class="datapoint-container-outer">
                             <div class="datapoint-container">
                                 <!-- SCANNED GLYPHS -->
-                                <div class="datapoint" description="Book<br>A record made on sun-worn parchment, its glyphs inlaid with golden detailing.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Sun-Kings</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2818,9 +2819,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Scroll<br>A scroll of parchment with glyphs in fresh ink.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Record of Redmaw 2</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2828,9 +2829,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A heavy-bound volume of records, marked with Carja military symbols.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>History of Sunfall</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2838,9 +2839,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A book of parchment, bound in leather, with glyphs printed in machine oil.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Bylaws of the Lodge</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2848,9 +2849,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A small glyph book on cheap parchment, illustrated with sketches of arguing Oseram men.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Claim</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2858,9 +2859,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A scribe's book of carefully-copied glyphs.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Founding Of Meridian</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2868,9 +2869,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Scroll<br>A lengthy scroll of parchment, stamped with wax seals.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Liberation</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2878,9 +2879,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Pamphlet<br>Each page of this screed is crammed with glyph text in a messy, hastily-etched hand.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Mad Sun-King</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2888,9 +2889,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>This book of sacred glyphs is etched on thin sheets of golden-hued metal.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Sun Faith</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2898,9 +2899,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A book of parchment with faded glyphs, though later entries are legible.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Legendary Hunts</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2908,9 +2909,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Scroll<br>A scroll of parchment with glyphs in machine ink.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Record of Redmaw 1</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2918,9 +2919,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>Parchment, inked with glyphs.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Olin&#39;s Journal</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2928,9 +2929,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A small glyph book on cheap parchment, illustrated with sketches of stern Banuk hunters.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Banuk</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2938,9 +2939,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A small glyph book on cheap parchment, illustrated with exaggerated sketches of ferocious Nora women.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Nora</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2948,9 +2949,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Scroll<br>Parchment scroll of glyph text and detailed anatomical drawings of machines.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Derangement</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2958,9 +2959,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Scroll<br>An academic scroll, the glyphs etched in a tiny and fastidous hand.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Old Ones</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2968,9 +2969,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A travel-worn book of glyphs, interspersed with portraits of colorful-looking outlanders.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>Captains and Capers</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -2978,9 +2979,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="datapoint" description="Book<br>A yellowing parchment containing reports in various different hands and inks.">
+                                <div class="datapoint" description="">
                                     <div class="datapoint-title">
-                                        <header>The Forbidden West</header>
+                                        <header></header>
                                     </div>
                                     <div class="datapoint-content">
                                         <div class="datapoint-text">
@@ -3001,12 +3002,12 @@
         </div>
         <div class="controls-container">
             <div id="switch-layout" onclick="toggle_layout()">
-                <div class="control-key">Caps</div>
-                Toggle Layout
+                <div class="control-key">alt</div>
+                <span id="toggle-layout-text"></span>
             </div>
             <div id="select-button" onclick="select_datapoint()">
-                <div class="control-key">F</div>
-                Select
+                <div class="control-key">f</div>
+                <span id="select-text"></span>
             </div>
         </div>
     </div>

@@ -125,7 +125,7 @@ body {
     align-items: center;
     /* 360p --> 80px */
     /* 720p --> 128px */
-    font-size: calc(2em + 3 * 16 * ( 100vw / 360));
+    font-size: calc(2em + 3 * 16 * (100vw / 360));
     text-transform: uppercase;
     font-weight: 900;
     color: var(--light-blue);
@@ -188,7 +188,7 @@ code {
         justify-content: center;
         align-items: center;
     }
-    
+
     #section-about > header {
         padding: 0.5em 0;
         width: 60%;
@@ -370,7 +370,7 @@ code {
     .credit__role {
         font-size: 0.75em;
     }
-    
+
     .credit__name {
         font-size: 1.5em;
     }

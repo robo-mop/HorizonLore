@@ -213,7 +213,7 @@ nav#mobile-nav > .nav-body {
         align-items: center;
         gap: 1em;
         font-size: 3em;
-        color:var(--steel-blue);
+        color: var(--steel-blue);
     }
 
     .desktop-nav__child {
@@ -223,7 +223,7 @@ nav#mobile-nav > .nav-body {
     }
 
     /* Network Display */
-    
+
     #network-status {
         position: absolute;
         margin-top: auto;
@@ -365,11 +365,25 @@ nav#mobile-nav > .nav-body {
 
 /* Originally in Datapoints.css */
 
-img.collectibles-icon {content: url(/zero-dawn/images/datapoint-icon-collectibles.png);}
-img.audio-icon {content: url(/zero-dawn/images/datapoint-icon-audio.png);}
-img.holograms-icon {content: url(/zero-dawn/images/datapoint-icon-Holograms.png);}
-img.text-icon {content: url(/zero-dawn/images/datapoint-icon-text.png);}
-img.scanned-glyphs-icon {content: url(/zero-dawn/images/datapoint-icon-scanned-glyphs.png);}
+img.collectibles-icon {
+    content: url(/zero-dawn/images/datapoint-icon-collectibles.png);
+}
+
+img.audio-icon {
+    content: url(/zero-dawn/images/datapoint-icon-audio.png);
+}
+
+img.holograms-icon {
+    content: url(/zero-dawn/images/datapoint-icon-holograms.png);
+}
+
+img.text-icon {
+    content: url(/zero-dawn/images/datapoint-icon-text.png);
+}
+
+img.scanned-glyphs-icon {
+    content: url(/zero-dawn/images/datapoint-icon-scanned-glyphs.png);
+}
 
 #page-content {
     width: 100vw;
@@ -382,7 +396,7 @@ img.scanned-glyphs-icon {content: url(/zero-dawn/images/datapoint-icon-scanned-g
     position: relative;
     width: 100vw;
     height: 100%;
-    
+
     /* transform: translateX(-100%); */
     /* transition: transform 1s ease; */
 }
@@ -391,7 +405,7 @@ img.scanned-glyphs-icon {content: url(/zero-dawn/images/datapoint-icon-scanned-g
     #main-container {
         /* background-color: aqua; */
         display: flex;
-        justify-content: center;
+        justify-content: end;
         align-items: center;
     }
 }
@@ -498,15 +512,15 @@ section#datapoint-types {
     .datapoint-choice::before, .datapoint-choice::after {
         display: none;
     }
-    
+
     .datapoint-choice:hover {
         color: var(--selection-color);
     }
-    
+
     .datapoint-choice.datatype-selected {
         color: var(--selection-color);
     }
-    
+
     .datatype-selected > img {
         filter: var(--selection-filter);
     }
@@ -539,7 +553,7 @@ section#datapoint-types {
         flex: 20 0 0;
         /* width: fit-content; */
     }
-    
+
     section#datatype-container.shown {
         background: none;
         pointer-events: all;
@@ -566,6 +580,7 @@ section.datatype {
 }
 
 @media (min-width: 1024px) {
+
     /* Gap bewteen 'Audio Datapoints' and the grid (basically for the line under the title) */
     section.datatype {
         gap: 20px;
@@ -598,7 +613,7 @@ section.datatype.shown {
         overflow: visible;
         justify-content: flex-start;
     }
-    
+
     .datatype-title::after {
         content: '';
         position: absolute;
@@ -610,7 +625,7 @@ section.datatype.shown {
         background-position: 0 center;
         background-size: 100% cover;
         background-repeat: no-repeat;
-    }   
+    }
 }
 
 /* This is the close-datatype-section button */
@@ -639,7 +654,7 @@ section.datatype.shown {
     .datatype-title > img {
         display: none;
     }
-    
+
     .datatype-title > header {
         text-align: left;
     }
@@ -650,10 +665,10 @@ section.datatype.shown {
 .datapoint-container-outer {
     height: 100%;
     width: 100%;
-    
+
     display: flex;
     justify-content: center;
-    
+
     overflow: auto;
 }
 
@@ -662,7 +677,7 @@ section.datatype.shown {
         width: 8px;
         background: url(/zero-dawn/images/scrollbar-vertical.png) center/cover no-repeat;
     }
-    
+
     .datapoint-container-outer::-webkit-scrollbar-thumb {
         background: url(/zero-dawn/images/scrollbar-thumb-vertical.png) center/100% 100% no-repeat;
     }
@@ -674,7 +689,7 @@ section.datatype.shown {
     margin: 0 auto;
     height: fit-content;
     width: calc(100% - 20px);
-    
+
     display: grid;
     grid-template-columns: repeat(1, 100%);
 }
@@ -742,11 +757,11 @@ section.datatype.shown {
     .datapoint.focused > .datapoint-title > header {
         color: var(--selection-color);
     }
-    
+
     .datapoint-title::before {
         font-size: 0.70em;
     }
-    
+
     .datapoint-title > header {
         font-size: 1.5em;
     }
@@ -813,7 +828,7 @@ section.datatype.shown {
     left: 0;
     height: 20px;
     width: 100%;
-    
+
     background: url(/zero-dawn/images/scrollbar-horizontal.png) center/100% no-repeat;
 }
 
@@ -831,7 +846,7 @@ section.datatype.shown {
 .datapoint-audio > .play-button {
     height: 2em;
     width: 2em;
-    
+
     background: url(/zero-dawn/images/play-button.png) center/cover no-repeat;
 }
 
@@ -869,7 +884,7 @@ section.datatype.shown {
 }
 
 .datapoint-text {
-    color:rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     overflow: auto;
 }
 
@@ -907,11 +922,11 @@ section#desktop-sidebar {
         opacity: 1;
         transition: opacity 250ms ease;
     }
-    
+
     section#datatype-container:not(.shown) + section#desktop-sidebar {
         opacity: 0;
     }
-    
+
     #desktop-sidebar > header {
         display: flex;
         flex-direction: column;
@@ -923,7 +938,7 @@ section#desktop-sidebar {
         color: white;
         background: url(/zero-dawn/images/datapoint-title-brushed-background.png) 0/contain no-repeat;
     }
-    
+
     #desktop-sidebar > div {
         /* This is the description of sorts */
         font-family: 'Inconsolata', monospace;
@@ -932,9 +947,9 @@ section#desktop-sidebar {
         width: 100%;
         text-align: left;
         font-size: 0.65em;
-        color:rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.85);
     }
-    
+
     #desktop-sidebar > img.datatype-poster {
         margin-top: auto;
         width: 100%;
@@ -944,16 +959,17 @@ section#desktop-sidebar {
 /* Time for the classic Layout stuff */
 
 @media (min-width: 1024px) {
+
     /* Classic Layout for desktop */
     .classic-layout .datapoint-container {
         --columns: 12;
         grid-template-columns: repeat(var(--columns), 1fr);
         gap: 0.1vw;
     }
-    
+
     .classic-layout .datapoint {
         width: 100%;
-        
+
         position: relative;
         aspect-ratio: 1 / 1;
     }
@@ -965,11 +981,11 @@ section#desktop-sidebar {
         left: 0;
         width: 100%;
         height: 100%;
-        
+
         background: url(/zero-dawn/images/DatapointBackground-Transparent.png) 0/cover;
         opacity: 0.65;
     }
-    
+
     .classic-layout .datapoint::after {
         content: '';
         position: absolute;
@@ -977,29 +993,40 @@ section#desktop-sidebar {
         left: 0;
         height: 100%;
         width: 100%;
-        
+
         background: center/cover no-repeat;
     }
 
-    .classic-layout #Audio .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-audio.png);}
-    .classic-layout #Holograms .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-Holograms.png);}
-    .classic-layout :is(#Text-Quests, #Text-World, #Text-Machines) .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-text.png);}
-    .classic-layout #Scanned-Glyphs .datapoint::after {background-image: url(/zero-dawn/images/datapoint-icon-scanned-glyphs.png);}
+    .classic-layout #Audio .datapoint::after {
+        background-image: url(/zero-dawn/images/datapoint-icon-audio.png);
+    }
+
+    .classic-layout #Holograms .datapoint::after {
+        background-image: url(/zero-dawn/images/datapoint-icon-holograms.png);
+    }
+
+    .classic-layout :is(#Text-Quests, #Text-World, #Text-Machines) .datapoint::after {
+        background-image: url(/zero-dawn/images/datapoint-icon-text.png);
+    }
+
+    .classic-layout #Scanned-Glyphs .datapoint::after {
+        background-image: url(/zero-dawn/images/datapoint-icon-scanned-glyphs.png);
+    }
 
     .classic-layout .datapoint.focused::after {
         filter: var(--selection-filter);
     }
-    
+
     .classic-layout .datapoint > * {
         display: none;
     }
-    
+
     /* The desktop popup */
 
     body:not(.classic-layout) #datapoint-popup {
         display: none !important;
     }
-    
+
     #datapoint-popup.shown {
         position: absolute;
         top: 0;
@@ -1009,28 +1036,28 @@ section#desktop-sidebar {
         z-index: 999;
         display: block;
     }
-    
+
     .classic-layout #datapoint-popup.shown + #page {
         opacity: 0 !important;
         user-select: none !important;
         pointer-events: none !important;
     }
-    
+
     #popup-main {
         display: flex;
         justify-content: center;
         align-items: stretch;
         height: 90vh;
     }
-    
+
     #popup-main > #popup-content {
         flex: 6 0 0;
-        
+
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
+
     #popup-info {
         /* background-color: burlywood; */
         width: 75%;
@@ -1040,7 +1067,7 @@ section#desktop-sidebar {
         justify-content: center;
         align-items: center;
     }
-    
+
     #popup-info > header {
         width: 100%;
         display: flex;
@@ -1053,41 +1080,42 @@ section#desktop-sidebar {
         text-align: center;
         padding: 0;
     }
-    
+
     #popup-info > span {
         font-size: 2em;
         color: var(--steel-blue);
     }
-    
+
     #popup-info > .datapoint-audio {
         height: 6em;
         margin: 10px 0;
         width: 50%;
     }
-    
+
     #popup-content:not([media-type]) .datapoint-audio {
         display: none;
     }
-    
+
     #popup-info > #popup-text {
         padding-right: 10px;
         font-family: 'Inconsolata', monospace;
         font-size: 21px;
         width: 75%;
         height: 50%;
-        color:rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.85);
         overflow: auto;
+        white-space: break-spaces;
     }
-    
+
     #popup-text::-webkit-scrollbar {
         width: 8px;
         background: url(/zero-dawn/images/scrollbar-vertical.png) center/cover no-repeat;
     }
-    
+
     #popup-text::-webkit-scrollbar-thumb {
         background: url(/zero-dawn/images/scrollbar-thumb-vertical.png) center/100% 100% no-repeat;
     }
-    
+
     #popup-main > #poster-img {
         flex: 4 0 0;
         display: flex;
@@ -1095,16 +1123,16 @@ section#desktop-sidebar {
         justify-content: center;
         align-items: flex-start;
     }
-    
+
     #poster-img > img {
         max-width: 100%;
         max-height: 100%;
     }
-    
+
     #datapoint-popup > .controls-container {
         padding: 0 10%;
         height: 10vh;
-        
+
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -1125,7 +1153,7 @@ section#desktop-sidebar {
         /* Fancy calculation: 0.75em at 1024px, 1em at 1550px */
         font-size: calc(0.75em + 8 * (100vw - 1024px) / 526);
     }
-    
+
     .classic-layout .datapoint-container {
         --columns: 10;
     }
